@@ -1,0 +1,6 @@
+sudo podman run -it \
+     -e HOST1=backend1-api-workshop.apps-crc.testing \
+     -e HOST2=backend2-api-workshop.apps-crc.testing \
+     -e PORT=80 \
+     -p 8080:8080 \
+     react:27 /bin/bash
