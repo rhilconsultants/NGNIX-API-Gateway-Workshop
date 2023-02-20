@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: api-workshop
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: api-workshop
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: Deployment
+    repoURL: 'https://github.com/rhilconsultants/NGNIX-API-Gateway-Workshop.git'
+    targetRevision: GitOps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+

@@ -47,15 +47,9 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 3
-          env:
-            - name: HOST1
-              value: backend1
-            - name: HOST2
-              value: backend2
-            - name: PORT
-              value: '8080'
-            - name: API_URL
-              value: from_OCP
+          envFrom:
+          - configMapRef:
+              name: app-environment
           ports:
             - containerPort: 8080
               protocol: TCP
