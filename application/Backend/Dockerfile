@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/nodejs-16
+FROM registry.access.redhat.com/ubi8/nodejs-18:latest as builder
 
 # Create app directory
 WORKDIR /tmp
@@ -18,7 +18,16 @@ RUN npm install && npm audit fix --force
 # Bundle app source
 COPY src .
 
+
+
+FROM registry.access.redhat.com/ubi8/nodejs-18-minimal:latest
+
+WORKDIR /tmp
+
+COPY --from=builder /tmp .
+
 USER 1001
 
 EXPOSE 9091
+
 CMD [ "node", "app.js" ]

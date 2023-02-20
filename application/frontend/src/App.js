@@ -18,6 +18,9 @@ function App(_res,_req) {
           <p>
             API_URL: {window._env_.API_URL}
           </p>
+          <p>
+            HOST: {window._env_.HOSTNAME}
+          </p>
           <a
             className="link"
             href="/backend1"
