@@ -1,0 +1,78 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: fronetend
+  labels:
+    app: fronetend
+    app.kubernetes.io/component: fronetend
+    app.kubernetes.io/instance: fronetend
+    app.kubernetes.io/name: fronetend
+    app.kubernetes.io/part-of: api-workshop
+    app.openshift.io/runtime: nodejs
+    app.openshift.io/runtime-namespace: api-workshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fronetend
+  template:
+    metadata:
+      labels:
+        app: fronetend
+        deployment: fronetend
+    spec:
+      containers:
+        - resources:
+            requests:
+              cpu: 150m
+              memory: 128Mi
+            limits: {}
+          readinessProbe:
+            httpGet:
+              path: /probes/readiness
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: fronetend
+          livenessProbe:
+            httpGet:
+              path: /probes/liveness
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: HOST1
+              value: backend1
+            - name: HOST2
+              value: backend2
+            - name: PORT
+              value: '8080'
+            - name: API_URL
+              value: from_OCP
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          terminationMessagePolicy: File
+          image: 'quay.io/thason/react-app:v11'
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
