@@ -16,7 +16,7 @@ function App(_res,_req) {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            API_URL: {window._env_.API_URL}
+            Message: {window._env_.API_URL}
           </p>
           <p>
             HOST: {window._env_.HOSTNAME}
