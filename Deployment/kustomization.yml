@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
 - Backend/1
 - Backend/2
-- Fronetend
+- Frontend
 
 
