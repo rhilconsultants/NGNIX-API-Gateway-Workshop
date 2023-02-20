@@ -10,6 +10,13 @@ metadata:
     pod-security.kubernetes.io/audit-version: v1.24
     pod-security.kubernetes.io/warn: baseline
     pod-security.kubernetes.io/warn-version: v1.24
+  ownerReferences:
+    - apiVersion: argoproj.io/v1alpha1
+      kind: ArgoCD
+      name: openshift-gitops
+      uid: 388de0a9-8569-4b4e-a15a-3ceac15b98c9
+      controller: true
+      blockOwnerDeletion: true
   annotations:
     openshift.io/description: 'api-workshop'
     openshift.io/display-name: 'api-workshop'
