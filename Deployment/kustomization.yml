@@ -14,4 +14,4 @@ configMapGenerator:
     - PORT=8080
     - HOST1=backend1
     - HOST2=backend2
-    - API_URL=from_kustomized
+    - API_URL="hi Batel"
