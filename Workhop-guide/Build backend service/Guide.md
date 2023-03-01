@@ -114,7 +114,7 @@
 
 7. Build a contianer image for the backend application.
 
-  a. Create a "Dokcerfile" in the backend folder with the following content
+   a. Create a "Dockerfile" in the backend folder with the following content
 
       ```dockerfile
       # ---> Application Build Image
@@ -151,35 +151,37 @@
   
       CMD [ "node", "app.js" ]
       ```
-  b. Now We build our Backend image with docker
 
-     ```bash
-     docker build . -t quay.io/<User-Name>/backend-app:v1
-     ```
-  
-  c. check that the image is running correctly
+   b. Now We build our Backend image with docker
 
-     ```bash
-     docker run -d -p 9091:9091 quay.io/<User-Name>/backend-app:v1
-     ```
-     
-     ... 
-     to see if the container is running
-     ...
-     ```bash
-     docker ps -a
-     ```
+      ```bash
+      docker build . -t quay.io/<User-Name>/backend-app:v1
+      ```
 
-  d. now push the backend image to the quay registry, before doing it, remmber to login in with your user and password
+   c. check that the image is running correctly
 
-     ```bash
-     docker login -u <User-Name> -p <User-Pass> quay.io
-     ```
+      ```bash
+      docker run -d -p 9091:9091 quay.io/<User-Name>/backend-app:v1
+      ```
 
-     Now push the new image to the quay registry.
+      ...
+      to see if the container is running
+      ...
 
-     ```bash
-     docker push uay.io/<User-Name>/backend-app:v1
-     ```
+      ```bash
+      docker ps -a
+      ```
+
+   d. now push the backend image to the quay registry, before doing it, remmber to login in with your user and password
+
+      ```bash
+      docker login -u <User-Name> -p <User-Pass> quay.io
+      ```
+
+      Now push the new image to the quay registry.
+
+      ```bash
+      docker push uay.io/<User-Name>/backend-app:v1
+      ```
 
 ### now our backend application is deployed to an image registry and we can access it from anywhere ###
