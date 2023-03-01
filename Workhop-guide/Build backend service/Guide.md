@@ -174,6 +174,14 @@
 
    d. now push the backend image to the quay registry, before doing it, remmber to login in with your user and password
 
+      navigate to www.quay.io, and login with your username and password
+
+      - Click on "+ Create New Repository".
+      - enter the image name you enter in the docker build step.
+      - Select public
+      - Select (Empty repository)
+      - Click "Create Public Repositoy"
+
       ```bash
       docker login -u <User-Name> -p <User-Pass> quay.io
       ```
