@@ -4,20 +4,6 @@ metadata:
   name: api-workshop
   labels:
     argocd.argoproj.io/managed-by: openshift-gitops
-    kubernetes.io/metadata.name: api-workshop
-    openshift-pipelines.tekton.dev/namespace-reconcile-version: 1.8.2
-    pod-security.kubernetes.io/audit: baseline
-    pod-security.kubernetes.io/audit-version: v1.24
-    pod-security.kubernetes.io/warn: baseline
-    pod-security.kubernetes.io/warn-version: v1.24
-  annotations:
-    openshift.io/description: 'api-workshop'
-    openshift.io/display-name: 'api-workshop'
-    openshift.io/requester: developer
-    openshift.io/sa.scc.mcs: 's0:c27,c9'
-    openshift.io/sa.scc.supplemental-groups: 1000720000/10000
-    openshift.io/sa.scc.uid-range: 1000720000/10000
-    operator.tekton.dev/prune.hash: e12cf88878007ab90299fa28c92d42daf72a1dda6ff604ea40c1f1da0f1f5e1d
 spec:
   finalizers:
     - kubernetes
