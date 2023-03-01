@@ -1,0 +1,313 @@
+# Part 2 of NGINX Gateway #
+
+## Build a REACT frontend service the is served by NGNIX Server and Proxy Pass Configuration ##
+
+1. Create a new react application via cli
+
+   ```bash
+   npx create-react-app fronetend
+   cd fronetend
+   ```
+
+   and wait for the installation to finish
+
+2. Create a new file named .env in the frontend application
+
+    ```bash
+    touch .env
+    ```
+
+    and copy the following content in the to file
+
+    ```env
+    API_URL=localhost
+    HOSTNAME=my_host_name
+    ```
+
+3. create a new file named env.sh.
+   Then let’s write a small bash script which will read.env file and extract environment variables that will be written into the file. If you set an environment variable inside the container, its value will be used, otherwise, it will fall back to the default value from .env file. It will create a JavaScript file which puts environment variable values as an object which is assigned as a property of window object.
+
+   ```bash
+   #!/bin/bash
+
+   # (1) Recreate config file 
+   rm -rf ./env-config.js
+   touch ./env-config.js
+   
+   # (2) Add assignment 
+   echo "window._env_ = {" >> ./env-config.js
+   
+   # (3) Read each line in .env file
+   # Each line represents key=value pairs
+   while read -r line || [[ -n "$line" ]];
+   do
+     # (4) Split env variables by character `=`
+     if printf '%s\n' "$line" | grep -q -e '='; then
+       varname=$(printf '%s\n' "$line" | sed -e 's/=.*//')
+       varvalue=$(printf '%s\n' "$line" | sed -e 's/^[^=]*=//')
+     fi
+   
+     # Read value of current variable if exists as Environment variable
+     value=$(printf '%s\n' "${!varname}")
+     # Otherwise use value from .env file
+     [[ -z $value ]] && value=${varvalue}
+     
+     # (5) Append configuration property to JS file
+     echo "  $varname: \"$value\"," >> ./env-config.js
+   done < .env
+   
+   # (6)
+   echo "}" >> ./env-config.js
+   ```
+
+   Explaination:
+   env.sh –
+     (1) Removes the old file, and creates a new one.
+     (2) writes JS code which opens object literal and assigns it to the global window object.
+     (3) Reads each line of .env file and splits into key/value pair.
+     (4) Look for the environment variable, if set, use its value, otherwise, use the default value from .env file.
+     (5) Append it to object that we assigned to global window object.
+     (6) Close object literal.
+
+4. We need to add the following line to <head> element inside index.htmlwhich then imports the file created by our bash script.
+
+   ```html
+   <script src="%PUBLIC_URL%/env-config.js"></script>
+   ```
+
+   the full file will look like this:
+
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+     <head>
+       <meta charset="utf-8" />
+       <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
+       <meta name="theme-color" content="#000000" />
+       <meta
+         name="description"
+         content="Web site created using create-react-app"
+       />
+       <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+       <!--
+         manifest.json provides metadata used when your web app is installed on a
+         user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+       -->
+       <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+       <!--
+         Notice the use of %PUBLIC_URL% in the tags above.
+         It will be replaced with the URL of the `public` folder during the build.
+         Only files inside the `public` folder can be referenced from the HTML.
+         Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+         work correctly both with client-side routing and a non-root public URL.
+         Learn how to configure a non-root public URL by running `npm run build`.
+       -->
+       <script src="%PUBLIC_URL%/env-config.js"></script>
+       <title>React App</title>
+     </head>
+     <body>
+       <noscript>You need to enable JavaScript to run this app.</noscript>
+       <div id="root"></div>
+       <!--
+         This HTML file is a template.
+         If you open it directly in the browser, you will see an empty page.
+         You can add webfonts, meta tags, or analytics to this file.
+         The build step will place the bundled scripts into the <body> tag.
+         To begin the development, run `npm start` or `yarn start`.
+         To create a production bundle, use `npm run build` or `yarn build`.
+       -->
+     </body>
+   </html>
+   ```
+
+5. Now let's edit app.js, the file should look as following:
+
+    ```js
+    import { useEffect, useState } from "react";
+    import logo from './logo.svg';
+    import './App.css';
+    
+    
+    
+    function App(_res,_req) {
+      const [title] = useState(`${window._env_.API_URL}`);
+      useEffect(() => {
+        // This will run when the page first loads and whenever the title changes
+        document.title = title;
+      },
+      [title]);
+      return (   
+        <div className="App">
+            <header className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <p>
+                Message: {window._env_.API_URL}
+              </p>
+              <p>
+                HOST: {window._env_.HOSTNAME}
+              </p>
+              <a
+                className="link"
+                href="/backend1"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Test backend 1
+              </a>
+              <a
+                className="link"
+                href="/backend2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Test backend 2
+              </a>
+            </header>
+          </div>
+      );
+    }
+    
+    export default App;
+    ```
+
+    **Make sure you are editing the files in the correct location index.html under public and app.js under src**
+
+6. edit the "package.json" with the following chagnes
+
+    ```json
+    {
+      "name": "frontend",
+      "version": "0.1.0",
+      "private": true,
+      "dependencies": {
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "express": "^4.18.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-scripts": "5.0.1",
+        "web-vitals": "^2.1.4"
+      },
+      "scripts": {
+        "start": "chmod +x ./env.sh && ./env.sh && cp env-config.js ./public/ && react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+      },
+      "eslintConfig": {
+        "extends": [
+          "react-app",
+          "react-app/jest"
+        ]
+      },
+      "browserslist": {
+        "production": [
+          ">0.2%",
+          "not dead",
+          "not op_mini all"
+        ],
+        "development": [
+          "last 1 chrome version",
+          "last 1 firefox version",
+          "last 1 safari version"
+        ]
+      }
+    }
+    ```
+
+    this will allow us to test the script local outside of the container
+
+7. replace logo.svg with the image in this link in the src folder
+    [logo.svg](https://raw.githubusercontent.com/rhilconsultants/NGNIX-API-Gateway-Workshop/GitOps/application/frontend/src/logo.svg)
+
+8. add the followiing ico to the frontend folder
+    [icon](https://raw.githubusercontent.com/rhilconsultants/NGNIX-API-Gateway-Workshop/GitOps/application/frontend/favicon.ico)
+
+9. Now test locally our application
+
+    ```bash
+    yarn start
+    ```
+
+    we should see the following web page
+    ![Web page](https://raw.githubusercontent.com/rhilconsultants/NGNIX-API-Gateway-Workshop/GitOps/artifacts/web-local.png)
+
+10. if everything worked successfully we now can start building our Container image.
+
+    a. create a Dockerfile in the frontend folder
+
+        ```Dockerfile
+        # => Build container
+        FROM registry.access.redhat.com/ubi8/nodejs-14:latest as builder
+        USER root
+        RUN npm install --global yarn
+        WORKDIR /app
+        COPY package.json .
+        #COPY yarn.lock .
+        RUN yarn
+        COPY . .
+        RUN yarn build
+        
+        # => Run container
+        FROM registry.access.redhat.com/ubi8/nginx-120:latest
+        USER root
+        # Nginx config
+        
+        COPY conf/conf.d/default.conf  /etc/nginx/
+        
+        # Static build
+        COPY --from=builder /app/build /usr/share/nginx/html/
+        
+        # Default port exposure
+        EXPOSE 8080
+        
+        # Copy .env file and shell script to container
+        WORKDIR /usr/share/nginx/html
+        COPY ./env.sh .
+        COPY .env .
+        COPY entrypoint.sh .
+        COPY *.ico .
+        
+        
+        # Make our shell script executable
+        RUN chmod 775 env.sh env-config.js entrypoint.sh && \
+            chgrp -R 0 /usr/share/nginx/html && \
+            chmod -R g=u /usr/share/nginx/html && \
+            chown -R 1001:0 /usr/share/nginx/html
+        
+        ENV API_URL From_the_Dockerfile
+        
+        ENV HOST1 172.27.193.116
+        ENV HOST2 172.27.193.116
+        ENV PORT 9090
+        
+        USER 1001
+        # Start Nginx server
+        ENTRYPOINT ["/usr/share/nginx/html/entrypoint.sh"]
+        CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
+        ```
+
+    b. create a new entrypoint.sh file in the frontend folder
+
+        ```bash
+        #!/bin/bash
+
+        set -eu
+
+        echo "update ngnix config"
+        envsubst '\${HOST1} \${HOST2} \${PORT}' < /etc/nginx/default.conf > /etc/nginx/nginx.conf
+
+        exec "$@"
+        ```
+
+    c. now let's create our NGINX config template 
+        
+
+    c. now let's build our frontend continer image
+
+        ```bash
+        docker build . -t quay.io/<UserName>/fronend-app:v1
+        ```
+    
