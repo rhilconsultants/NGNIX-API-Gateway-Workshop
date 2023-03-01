@@ -1,3 +1,4 @@
+# ---> Application Build Image
 FROM registry.access.redhat.com/ubi8/nodejs-18:latest as builder
 
 # Create app directory
@@ -18,8 +19,7 @@ RUN npm install && npm audit fix --force
 # Bundle app source
 COPY src .
 
-
-
+# ---> Appilcation run time image
 FROM registry.access.redhat.com/ubi8/nodejs-18-minimal:latest
 
 WORKDIR /tmp
