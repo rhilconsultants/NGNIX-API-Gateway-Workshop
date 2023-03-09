@@ -13,16 +13,14 @@
 
    a. Create the Deployment folder
 
-        ```Bash
         mkdir Deployment
-        ```
+
     b. Create Backend folders
 
-        ```Bash
         mkdir Backend
         mkdir Backend/1
         mkdir Backend/2
-        ```
+
     c. Create the frontend folder
 
         ```Bash
