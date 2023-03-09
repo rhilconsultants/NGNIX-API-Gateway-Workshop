@@ -69,7 +69,7 @@
      (5) Append it to object that we assigned to global window object.
      (6) Close object literal.
 
-4. We need to add the following line to <head> element inside index.htmlwhich then imports the file created by our bash script.
+4. We need to add the following line to the "< head >" element inside index.htmlwhich then imports the file created by our bash script.
 
    ```html
    <script src="%PUBLIC_URL%/env-config.js"></script>
