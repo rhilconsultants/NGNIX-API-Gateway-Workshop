@@ -6,39 +6,39 @@
 
     use the following structure
 
-        ```
-        Deployment
-          |__Backend
-          |    |__1
-          |    |__2
-          |__Frontend
-        ```
+    ```
+    Deployment
+      |__Backend
+      |    |__1
+      |    |__2
+      |__Frontend
+    ```
 
    a. Create the Deployment folder
 
-        ```bash
-        mkdir Deployment
-        ```
+    ```bash
+    mkdir Deployment
+    ```
 
     b. Create Backend folders inside the Deployment folder
 
-        ```bash
-        mkdir Backend
-        ```
+    ```bash
+    mkdir Backend
+    ```
 
-        ```bash
-        mkdir Backend/1
-        ```
+    ```bash
+    mkdir Backend/1
+    ```
 
-        ```bash
-        mkdir Backend/2
-        ```
+    ```bash
+    mkdir Backend/2
+    ```
 
     c. Create the frontend folder
 
-        ```bash
-        mkdir frontend
-        ```
+    ```bash
+    mkdir frontend
+    ```
 
 2. New we will create our Deployements and services YAML manifests for each Application
 
