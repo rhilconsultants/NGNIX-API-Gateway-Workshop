@@ -2,6 +2,7 @@
 
 ## We will be using Kustomized to mamage the deployment configuration and ArgoCD to deploy to the cluster
 
+
 1. build the Kustomazied folder structure, we will have 1 frontend deployment and 2 backend Deployments.
 
     use the following structure
