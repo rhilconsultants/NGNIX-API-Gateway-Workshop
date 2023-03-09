@@ -381,3 +381,79 @@
       ```bash
       docker build . -t quay.io/<UserName>/fronend-app:v1
       ```
+
+    e. Lets test our new built image.
+
+      First we need to run our backend application
+
+      ```bash
+      docker run -d -p 9091:9091 --name=backend quay.io/<UserName>/backend-app:v1
+      ```
+
+      Now we need to check our local ip in the dev station
+
+      ```bash
+      ip a
+      # output
+      1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+          link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+          inet 127.0.0.1/8 scope host lo
+             valid_lft forever preferred_lft forever
+          inet6 ::1/128 scope host 
+             valid_lft forever preferred_lft forever
+      2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+          link/ether 00:22:48:87:18:7a brd ff:ff:ff:ff:ff:ff
+          inet 172.16.5.4/24 brd 172.16.5.255 scope global eth0
+             valid_lft forever preferred_lft forever
+          inet6 fe80::222:48ff:fe87:187a/64 scope link 
+             valid_lft forever preferred_lft forever
+      3: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+          link/ether 02:42:06:71:20:9c brd ff:ff:ff:ff:ff:ff
+          inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+             valid_lft forever preferred_lft forever
+          inet6 fe80::42:6ff:fe71:209c/64 scope link 
+             valid_lft forever preferred_lft forever
+      5: vethf817069@if4: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP group default 
+          link/ether c6:ea:9c:d9:79:d1 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+          inet6 fe80::c4ea:9cff:fed9:79d1/64 scope link 
+             valid_lft forever preferred_lft forever
+      ```
+
+      look at 2: and look at inet address, this will be our local ip to provide as environment variables to the front end
+
+      Now run the frontend container
+
+      ```Bash
+      docker run -d --name=frontend -e HOST1=<eth0-inet-address> -e HOST2=<eth0-inet-address> -e PORT=9091 -p 8080:8080 quay.io/<UserName>/frontend-app:v1
+      ```
+
+      we should get our web page running and able to access to the backend successfully via the links in the page.
+
+      Lets test to see if we can change the message in the frontend
+        1. remove and stop the current container.
+
+        ```bash
+        docker rm -f frontend
+        ```  
+        2. run the frontend with extra env. to update the message in the page
+        
+        ```bash
+        docker run -d --name=frontend \
+        -e HOST1=<eth0-inet-address> \
+        -e HOST2=<eth0-inet-address> \
+        -e PORT=9091 \
+        -e API_URL="this is my message" \
+        -p 8080:8080 \
+        quay.io/<UserName>/frontend-app:v1
+        ```
+
+        3. if everything workes well we will get the message that we set in the API_URL environment varible.
+
+11. Now Push our frontend container to the quay.io registry
+
+  ```Bash
+  docker push quay.io/<UserName>/frontend-app:v1
+  ```
+
+
+## Now we have a working frontend container ##
