@@ -238,76 +238,146 @@
 
     a. create a Dockerfile in the frontend folder
 
-        ```Dockerfile
-        # => Build container
-        FROM registry.access.redhat.com/ubi8/nodejs-14:latest as builder
-        USER root
-        RUN npm install --global yarn
-        WORKDIR /app
-        COPY package.json .
-        #COPY yarn.lock .
-        RUN yarn
-        COPY . .
-        RUN yarn build
-        
-        # => Run container
-        FROM registry.access.redhat.com/ubi8/nginx-120:latest
-        USER root
-        # Nginx config
-        
-        COPY conf/conf.d/default.conf  /etc/nginx/
-        
-        # Static build
-        COPY --from=builder /app/build /usr/share/nginx/html/
-        
-        # Default port exposure
-        EXPOSE 8080
-        
-        # Copy .env file and shell script to container
-        WORKDIR /usr/share/nginx/html
-        COPY ./env.sh .
-        COPY .env .
-        COPY entrypoint.sh .
-        COPY *.ico .
-        
-        
-        # Make our shell script executable
-        RUN chmod 775 env.sh env-config.js entrypoint.sh && \
-            chgrp -R 0 /usr/share/nginx/html && \
-            chmod -R g=u /usr/share/nginx/html && \
-            chown -R 1001:0 /usr/share/nginx/html
-        
-        ENV API_URL From_the_Dockerfile
-        
-        ENV HOST1 172.27.193.116
-        ENV HOST2 172.27.193.116
-        ENV PORT 9090
-        
-        USER 1001
-        # Start Nginx server
-        ENTRYPOINT ["/usr/share/nginx/html/entrypoint.sh"]
-        CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
-        ```
+      ```Dockerfile
+      # => Build container
+      FROM registry.access.redhat.com/ubi8/nodejs-14:latest as builder
+      USER root
+      RUN npm install --global yarn
+      WORKDIR /app
+      COPY package.json .
+      #COPY yarn.lock .
+      RUN yarn
+      COPY . .
+      RUN yarn build
+      
+      # => Run container
+      FROM registry.access.redhat.com/ubi8/nginx-120:latest
+      USER root
+      # Nginx config
+      
+      COPY conf/default.conf  /etc/nginx/
+      
+      # Static build
+      COPY --from=builder /app/build /usr/share/nginx/html/
+      
+      # Default port exposure
+      EXPOSE 8080
+      
+      # Copy .env file and shell script to container
+      WORKDIR /usr/share/nginx/html
+      COPY ./env.sh .
+      COPY .env .
+      COPY entrypoint.sh .
+      COPY *.ico .
+      
+      
+      # Make our shell script executable
+      RUN chmod 775 env.sh env-config.js entrypoint.sh && \
+          chgrp -R 0 /usr/share/nginx/html && \
+          chmod -R g=u /usr/share/nginx/html && \
+          chown -R 1001:0 /usr/share/nginx/html
+      
+      ENV API_URL From_the_Dockerfile
+      
+      ENV HOST1 172.27.193.116
+      ENV HOST2 172.27.193.116
+      ENV PORT 9090
+      
+      USER 1001
+      # Start Nginx server
+      ENTRYPOINT ["/usr/share/nginx/html/entrypoint.sh"]
+      CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
+      ```
 
     b. create a new entrypoint.sh file in the frontend folder
 
-        ```bash
-        #!/bin/bash
+      ```bash
+      #!/bin/bash
 
-        set -eu
+      set -eu
 
-        echo "update ngnix config"
-        envsubst '\${HOST1} \${HOST2} \${PORT}' < /etc/nginx/default.conf > /etc/nginx/nginx.conf
+      echo "update Nginx config"
+      envsubst '\${HOST1} \${HOST2} \${PORT}' < /etc/nginx/default.conf > /etc/nginx/nginx.conf
 
-        exec "$@"
-        ```
+      exec "$@"
+      ```
 
-    c. now let's create our NGINX config template 
-        
+    c. now let's create our NGINX config template, create a new folder named "conf" and a new file in it named "default.conf", create the following content of this file.
 
-    c. now let's build our frontend continer image
+      ```config
+      # For more information on configuration, see:
+      #   * Official English Documentation: http://nginx.org/en/docs/
+      #   * Official Russian Documentation: http://nginx.org/ru/docs/
+      
+      
+      worker_processes auto;
+      error_log /var/log/nginx/error.log;
+      pid /run/nginx.pid;
+      
+      # Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.
 
-        ```bash
-        docker build . -t quay.io/<UserName>/fronend-app:v1
-        ```
-    
+      include /usr/share/nginx/modules/*.conf;
+      
+      events {
+          worker_connections 1024;
+      }
+      
+      http {
+          log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                            '$status $body_bytes_sent "$http_referer" '
+                            '"$http_user_agent" "$http_x_forwarded_for"';
+      
+          access_log /dev/stdout; # /var/log/nginx/access.log  
+      
+          sendfile            on;
+          tcp_nopush          on;
+          tcp_nodelay         on;
+          keepalive_timeout   65;
+          types_hash_max_size 4096;
+      
+          include             /etc/nginx/mime.types;
+          default_type        application/octet-stream;
+      
+          # Load modular configuration files from the /etc/nginx/conf.d directory.
+          # See http://nginx.org/en/docs/ngx_core_module.html#include
+          # for more information.
+          include /opt/app-root/etc/nginx.d/*.conf;
+      
+          server {
+              listen       8080 default_server;
+              listen       [::]:8080 default_server;
+              server_name  front_end;
+              root         /usr/share/nginx/html;
+      
+              # Load configuration files for the default server block.
+              include /opt/app-root/etc/nginx.default.d/*.conf;
+              location / {
+                 index  index.html;
+                 try_files $uri /index.html;
+                 expires -1; # Set it to different value depending on your standard requirements
+              }
+              location /backend1 {
+                  proxy_pass http://$HOST1:$PORT/;
+              }
+              location /backend2 {
+                  proxy_pass http://$HOST2:$PORT/;
+              }
+              location /probes/readiness {
+                  return 200 "OK";
+              }
+              location /probes/liveness {
+                  return 200 "OK";
+              }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+          root   /usr/share/nginx/html;
+        }
+       }
+      }
+      ```
+
+    d. now let's build our frontend continer image
+
+      ```bash
+      docker build . -t quay.io/<UserName>/fronend-app:v1
+      ```
