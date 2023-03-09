@@ -19,7 +19,7 @@
 
         mkdir Backend \
         mkdir Backend/1 \
-        mkdir Backend/2 \
+        mkdir Backend/2
 
     c. Create the frontend folder
 
