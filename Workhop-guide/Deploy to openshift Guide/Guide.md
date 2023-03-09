@@ -17,8 +17,10 @@
 
     b. Create Backend folders
 
-        mkdir Backend \
-        mkdir Backend/1 \
+        mkdir Backend
+
+        mkdir Backend/1
+        
         mkdir Backend/2
 
     c. Create the frontend folder
