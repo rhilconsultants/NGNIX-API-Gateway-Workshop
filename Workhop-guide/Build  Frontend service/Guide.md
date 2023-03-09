@@ -432,20 +432,20 @@
       Lets test to see if we can change the message in the frontend
         1. remove and stop the current container.
 
-        ```bash
-        docker rm -f frontend
-        ```  
+            ```bash
+            docker rm -f frontend
+            ```  
         2. run the frontend with extra env. to update the message in the page
         
-        ```bash
-        docker run -d --name=frontend \
-        -e HOST1=<eth0-inet-address> \
-        -e HOST2=<eth0-inet-address> \
-        -e PORT=9091 \
-        -e API_URL="this is my message" \
-        -p 8080:8080 \
-        quay.io/<UserName>/frontend-app:v1
-        ```
+            ```bash
+            docker run -d --name=frontend \
+            -e HOST1=<eth0-inet-address> \
+            -e HOST2=<eth0-inet-address> \
+            -e PORT=9091 \
+            -e API_URL="this is my message" \
+            -p 8080:8080 \
+            quay.io/<UserName>/frontend-app:v1
+            ```
 
         3. if everything workes well we will get the message that we set in the API_URL environment varible.
 
