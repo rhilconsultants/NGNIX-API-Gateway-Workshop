@@ -14,7 +14,7 @@ FROM registry.access.redhat.com/ubi8/nginx-120:latest
 USER root
 # Nginx config
         
-COPY conf/conf.d/default.conf  /etc/nginx/
+COPY conf/default.conf  /etc/nginx/
         
 # Static build
 COPY --from=builder /app/build /usr/share/nginx/html/
