@@ -120,8 +120,10 @@
           maxSurge: 25%
       revisionHistoryLimit: 1
       progressDeadlineSeconds: 600
-      ``
-    service.yam
+      ```
+
+    service.yaml
+
     ```YAML
     kind: Service
     apiVersion: v1
@@ -148,8 +150,10 @@
       selector:
         app: fronetend
         deployment: fronetend
-    ``
-    route.yam
+    ```
+
+    route.yaml
+
     ```YAML
     kind: Route
     apiVersion: route.openshift.io/v1
@@ -170,8 +174,10 @@
       port:
         targetPort: 8080-tcp
       wildcardPolicy: None
-    ``
-    and the kustomaized manifest for this folder kustomization.yam
+    ```
+
+    and the kustomaized manifest for this folder kustomization.yaml
+
     ```YAML
     apiVersion: kustomize.config.k8s.io/v1beta1
     kind: Kustomization
