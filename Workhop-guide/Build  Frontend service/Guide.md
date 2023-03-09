@@ -430,12 +430,13 @@
       we should get our web page running and able to access to the backend successfully via the links in the page.
 
       Lets test to see if we can change the message in the frontend
-      
+
         1. remove and stop the current container.
 
             ```bash
             docker rm -f frontend
-            ```  
+            ```
+        
         2. run the frontend with extra env. to update the message in the page
         
             ```bash
