@@ -15,25 +15,23 @@
 
         mkdir Deployment
 
-    b. Create Backend folders
+    b. Create Backend folders inside the Deployment folder
 
         mkdir Backend
 
         mkdir Backend/1
-        
+
         mkdir Backend/2
 
     c. Create the frontend folder
 
-        ```Bash
         mkdir frontend
-        ```
+
 2. New we will create our Deployements and services YAML manifests for each Application
 
     a. Enter the frontend folder and create the following files:
-
         deployment.yaml
-    
+
         ```YAML
         kind: Deployment
         apiVersion: apps/v1
