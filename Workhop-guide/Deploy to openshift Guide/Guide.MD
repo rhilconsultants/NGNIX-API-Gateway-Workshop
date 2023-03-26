@@ -8,10 +8,10 @@
 
     ```bash
     Deployment
-      |__Backend
+      |__backend
       |    |__1
       |    |__2
-      |__Frontend
+      |__frontend
     ```
 
    a. Create the Deployment folder
@@ -23,15 +23,15 @@
     b. Create Backend folders inside the Deployment folder
 
     ```bash
-    mkdir Backend
+    mkdir backend
     ```
 
     ```bash
-    mkdir Backend/1
+    mkdir backend/1
     ```
 
     ```bash
-    mkdir Backend/2
+    mkdir backend/2
     ```
 
     c. Create the frontend folder
@@ -106,9 +106,9 @@
                   protocol: TCP
               imagePullPolicy: IfNotPresent
               terminationMessagePolicy: File
-              # Update with your image name
-              image: 'quay.io/<UserName>/react-app:v1'
-              #
+             # Update with your image name
+             image: 'quay.io/<<Your-Quay-User>>/<<Your-Image-Name>>:<<Your-image-Tag>>'
+             #
           restartPolicy: Always
           terminationGracePeriodSeconds: 30
           dnsPolicy: ClusterFirst
@@ -184,9 +184,9 @@
     kind: Kustomization
     
     resources:
-    - Deployment.yaml
-    - Service.yaml
-    - Route.yaml
+    - deployment.yaml
+    - service.yaml
+    - route.yaml
     ```
 
     b. Enter the backend/1 folder and create the following files:
@@ -254,7 +254,9 @@
                   protocol: TCP
               imagePullPolicy: IfNotPresent
               terminationMessagePolicy: File
-              image: 'quay.io/thason/hello-app:v4'
+             # Update with your image name
+             image: 'quay.io/<<Your-Quay-User>>/<<Your-Image-Name>>:<<Your-image-Tag>>'
+             #
           restartPolicy: Always
           terminationGracePeriodSeconds: 30
           dnsPolicy: ClusterFirst
@@ -295,14 +297,14 @@
         deployment: backend1
     ```
 
-    Kustomiziation.yaml
+    kustomization.yaml
 
     ```YAML
     apiVersion: kustomize.config.k8s.io/v1beta1
     kind: Kustomization
     
     resources:
-    - Deployment.yaml
+    - deployment.yaml
     - Service.yaml
     ```
 
@@ -371,7 +373,9 @@
                   protocol: TCP
               imagePullPolicy: IfNotPresent
               terminationMessagePolicy: File
-              image: 'quay.io/thason/hello-app:v7'
+              # Update with your image name
+              image: 'quay.io/<<Your-Quay-User>>/<<Your-Image-Name>>:<<Your-image-Tag>>'
+              #
           restartPolicy: Always
           terminationGracePeriodSeconds: 30
           dnsPolicy: ClusterFirst
@@ -419,8 +423,8 @@
     kind: Kustomization
     
     resources:
-    - Deployment.yaml
-    - Service.yaml
+    - deployment.yaml
+    - service.yaml
     ```
 
     d. Go back to the Deployment folder and create the following files:
@@ -434,7 +438,7 @@
     resources:
     - Backend/1
     - Backend/2
-    - Frontend
+    - frontend
     - namespace.yaml
     
     configMapGenerator:
