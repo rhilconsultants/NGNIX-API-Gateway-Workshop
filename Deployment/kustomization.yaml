@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- Backend/1
+- Backend/2
+- Frontend
+- namespace.yaml
+
+configMapGenerator:
+- name: app-environment
+  literals:
+    - BACKEBD_PORT=9091
+    - PORT=8080
+    - HOST1=backend1
+    - HOST2=backend2
+    - API_URL="Hello World"
