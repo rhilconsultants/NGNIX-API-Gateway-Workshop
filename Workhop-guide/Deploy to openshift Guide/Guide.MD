@@ -43,7 +43,8 @@
 2. New we will create our Deployements and services YAML manifests for each Application
 
     a. Enter the frontend folder and create the following files:
-        deployment.yaml
+
+      deployment.yaml
 
     ```YAML
     kind: Deployment
