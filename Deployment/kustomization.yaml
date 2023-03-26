@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
 - Backend/1
 - Backend/2
-- Frontend
+- frontend
 - namespace.yaml
 
 configMapGenerator:
