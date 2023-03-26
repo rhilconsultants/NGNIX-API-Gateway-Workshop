@@ -425,7 +425,7 @@
 
     d. Go back to the Deployment folder and create the following files:
 
-    kustomization.yml
+    kustomization.yaml
 
     ```YAML
     apiVersion: kustomize.config.k8s.io/v1beta1
@@ -476,4 +476,6 @@
       * 'server: 'https://kubernetes.default.svc'
       * 'namespace: api-workshop'
   
-    c.
+    c. Click "create", and wait for the argoCD to create it resources.
+
+
