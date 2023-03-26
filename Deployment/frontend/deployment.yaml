@@ -58,7 +58,7 @@ spec:
           imagePullPolicy: IfNotPresent
           terminationMessagePolicy: File
           # Update with your image name
-          image: 'quay.io/<UserName>/react-app:v1'
+          image: 'quay.io/thason/react-app:v1'
           #
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
