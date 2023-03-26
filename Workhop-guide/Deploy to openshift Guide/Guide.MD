@@ -465,9 +465,9 @@
 
 3. Deploy application to Openshift Cluster via ArgoCD
 
-  a. go to your argoCD instance and click "+ NEW APP"
+    a. go to your argoCD instance and click "+ NEW APP"
 
-  b. Fill the form as with the following:
+    b. Fill the form as with the following:
 
 * project - default
 * repoURL -  << Your GitHub Repo >>
@@ -475,5 +475,5 @@
 * targetRevision - Your Working Branch
 * 'server: 'https://kubernetes.default.svc'
 * 'namespace: api-workshop'
-
-  c.
+  
+    c.
