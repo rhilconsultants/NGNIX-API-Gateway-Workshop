@@ -469,11 +469,11 @@
 
     b. Fill the form as with the following:
 
-* project - default
-* repoURL -  << Your GitHub Repo >>
-* path -  The folder where the main kustomization file located
-* targetRevision - Your Working Branch
-* 'server: 'https://kubernetes.default.svc'
-* 'namespace: api-workshop'
+      * project - default
+      * repoURL -  << Your GitHub Repo >>
+      * path -  The folder where the main kustomization file located
+      * targetRevision - Your Working Branch
+      * 'server: 'https://kubernetes.default.svc'
+      * 'namespace: api-workshop'
   
     c.
