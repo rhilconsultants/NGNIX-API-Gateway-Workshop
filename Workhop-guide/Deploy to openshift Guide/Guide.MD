@@ -308,7 +308,7 @@
 
     c. Enter the backend/2 folder and create the following files:
 
-    deplpoyment.yaml
+    deployment.yaml
 
     ```YAML
     kind: Deployment
