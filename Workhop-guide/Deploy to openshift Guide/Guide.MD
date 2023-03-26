@@ -423,3 +423,57 @@
     - Service.yaml
     ```
 
+    d. Go back to the Deployment folder and create the following files:
+
+    kustomization.yml
+
+    ```YAML
+    apiVersion: kustomize.config.k8s.io/v1beta1
+    kind: Kustomization
+    
+    resources:
+    - Backend/1
+    - Backend/2
+    - Frontend
+    - namespace.yaml
+    
+    configMapGenerator:
+    - name: app-environment
+      literals:
+        - BACKEBD_PORT=9091
+        - PORT=8080
+        - HOST1=backend1
+        - HOST2=backend2
+        - API_URL="Hello World"
+    ```
+
+    namespace.yaml
+
+    ```YAML
+    kind: Namespace
+    apiVersion: v1
+    metadata:
+      name: api-workshop
+      labels:
+        argocd.argoproj.io/managed-by: <<Your ArgoCD Namepace Name>>
+    spec:
+      finalizers:
+        - kubernetes
+    ```
+
+    Now we have created a full application deployment from a single entrypoint folder.
+
+3. Deploy application to Openshift Cluster via ArgoCD
+
+  a. go to your argoCD instance and click "+ NEW APP"
+
+  b. Fill the form as with the following:
+
+* project - default
+* repoURL -  << Your GitHub Repo >>
+* path -  The folder where the main kustomization file located
+* targetRevision - Your Working Branch
+* 'server: 'https://kubernetes.default.svc'
+* 'namespace: api-workshop'
+
+  c.
