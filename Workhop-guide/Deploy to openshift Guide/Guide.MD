@@ -482,6 +482,13 @@
   
     c. Click "create", and wait for the argoCD to create it resources.
 
+    d. wait for all application object will sync successfully, there should be a green Hart 💚 and a green check ✅ next to all objects.
+
+    e. Go back to the Openshift console, Developer Perspective --> Topology and access the frontend application route
+
+    ![running app](https://raw.githubusercontent.com/rhilconsultants/NGNIX-API-Gateway-Workshop/GitOps/artifacts/Running-application.png)
+
+
 ## Congratulations You now have a working Applicaiton on the cluster ##
 
 ### Move over to Step 4 ###
