@@ -141,3 +141,28 @@
       ```
 
     d. update the frontend/deployment.yaml file with the new image and tag and refresh the ArgoCD application.
+
+### stage 2. Add a 3rd backend service.
+
+#### here i will only tell you what to do without any samples
+
+1. Navigate to Deplyment/backend, copy and paste folder 1 and rename it folder 3.
+
+2. replace in the new folder 3 files from "2" to "3" so we have a new deployment.
+
+3. Navigate to Deployment/kustomization.yaml and add the new backend/3 folder under resources.
+
+4. add, commit and push the new changes.
+
+5. refresh the ArgoCD Application and see that backend 3 is deployed to the cluster.
+
+6. Now add a new Link to the app.js file of the react applicaion and build the new image.
+
+7. update the new image in the deployment/frontend/deployment.yaml with the new image & tag
+
+8. update the conf/default.conf, entrypoint.sh with $HOST3 and add the HOST3 service name to the deployment/Kustomization.yaml file.
+
+9. add, commit and push the changes to the git, go and refresh the argoCD application.
+
+
+## Congratulations You have finish the Workshop
