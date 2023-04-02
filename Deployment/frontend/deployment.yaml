@@ -25,15 +25,15 @@ spec:
       - name: nginx-config
         configMap:
           name: nginx-config
-          items:
-            - key: default.conf
-              path: default.conf
+          # items:
+            # - key: default.conf
+              # path: default.conf
       - name: entrypoint
         configMap:
           name: entrypoint
-          items:
-            - key: entrypoint.sh
-              path: entrypoint.sh
+          # items:
+            # - key: entrypoint.sh
+              # path: entrypoint.sh
       containers:
         - resources:
             requests:
