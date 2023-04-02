@@ -142,7 +142,7 @@
 
     d. update the frontend/deployment.yaml file with the new image and tag and refresh the ArgoCD application.
 
-### stage 2. Add a 3rd backend service.
+### stage 2. Add a 3rd backend service
 
 #### here i will only tell you what to do without any samples
 
@@ -163,6 +163,5 @@
 8. update the conf/default.conf, entrypoint.sh with $HOST3 and add the HOST3 service name to the deployment/Kustomization.yaml file.
 
 9. add, commit and push the changes to the git, go and refresh the argoCD application.
-
 
 ## Congratulations You have finish the Workshop
