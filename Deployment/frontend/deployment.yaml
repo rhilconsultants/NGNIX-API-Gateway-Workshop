@@ -25,6 +25,7 @@ spec:
       - name: app-config
         configMap:
           name: app-config
+          defaultMode: 775
       containers:
         - resources:
             requests:
