@@ -34,7 +34,10 @@ COPY *.ico .
 RUN chmod 775 config/env.sh env-config.js config/entrypoint.sh && \
     chgrp -R 0 /usr/share/nginx/html && \
     chmod -R g=u /usr/share/nginx/html && \
-    chown -R 1001:0 /usr/share/nginx/html
+    chown -R 1001:0 /usr/share/nginx/html && \
+    chgrp -R 0 /usr/share/nginx/html/config && \
+    chmod -R g=u /usr/share/nginx/html/config && \
+    chown -R 1001:0 /usr/share/nginx/html/config
         
 ENV API_URL From_the_Dockerfile
         
