@@ -37,6 +37,14 @@ function App(_res,_req) {
           >
             Test backend 2
           </a>
+          <a
+            className="link"
+            href="/backend3"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Test backend 3
+          </a>
         </header>
       </div>
   );
