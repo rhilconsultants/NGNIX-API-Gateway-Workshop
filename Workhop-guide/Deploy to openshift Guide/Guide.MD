@@ -488,6 +488,9 @@
 
     ![running app](https://raw.githubusercontent.com/rhilconsultants/NGNIX-API-Gateway-Workshop/GitOps/artifacts/Running-application.png)
 
+    f. test the "Test backend 1" link to see that is able to access the backend server and also "Test backend 2"
+    to see that everything is working.
+
 
 ## Congratulations You now have a working Applicaiton on the cluster ##
 
