@@ -15,7 +15,7 @@ configMapGenerator:
     - PORT=8080
     - HOST1=backend1
     - HOST2=backend2
-    - HOST2=backend3
+    - HOST3=backend3
     - API_URL="Hello Hilay amir!!"
 - name: app-config
   files:
