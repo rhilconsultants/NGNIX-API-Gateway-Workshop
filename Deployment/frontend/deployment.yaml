@@ -22,18 +22,9 @@ spec:
         deployment: fronetend
     spec:
       volumes:
-      - name: nginx-config
+      - name: app-config
         configMap:
-          name: nginx-config
-          # items:
-            # - key: default.conf
-              # path: default.conf
-      - name: entrypoint
-        configMap:
-          name: entrypoint
-          # items:
-            # - key: entrypoint.sh
-              # path: entrypoint.sh
+          name: app-config
       containers:
         - resources:
             requests:
@@ -52,9 +43,7 @@ spec:
           terminationMessagePath: /dev/termination-log
           name: fronetend
           volumeMounts:
-            - name: nginx-config
-              mountPath: '/usr/share/nginx/html/config'
-            - name: entrypoint
+            - name: app-config
               mountPath: '/usr/share/nginx/html/config'
           livenessProbe:
             httpGet:
