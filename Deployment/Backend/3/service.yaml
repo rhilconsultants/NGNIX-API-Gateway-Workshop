@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend3
+  labels:
+    app: backend3
+    app.kubernetes.io/component: backend3
+    app.kubernetes.io/instance: backend3
+    app.kubernetes.io/name: backend3
+    app.kubernetes.io/part-of: api-workshop
+    app.openshift.io/runtime-version: v1
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 9091
+  type: ClusterIP
+  selector:
+    app: backend3
+    deployment: backend3
