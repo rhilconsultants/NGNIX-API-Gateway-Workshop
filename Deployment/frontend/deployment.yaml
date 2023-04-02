@@ -28,6 +28,12 @@ spec:
           items:
             - key: default.conf
               path: default.conf
+      - name: entrypoint
+        configMap:
+          name: entrypoint
+          items:
+            - key: entrypoint.sh
+              path: entrypoint.sh
       containers:
         - resources:
             requests:
