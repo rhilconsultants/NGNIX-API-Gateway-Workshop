@@ -21,6 +21,13 @@ spec:
         app: fronetend
         deployment: fronetend
     spec:
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+          items:
+            - key: default.conf
+              path: default.conf
       containers:
         - resources:
             requests:
@@ -38,6 +45,11 @@ spec:
             failureThreshold: 3
           terminationMessagePath: /dev/termination-log
           name: fronetend
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /usr/share/nginx/html/entryp
+            - name: entrypoint
+              mountPath: /usr/share/nginx/html/env.sh
           livenessProbe:
             httpGet:
               path: /probes/liveness
