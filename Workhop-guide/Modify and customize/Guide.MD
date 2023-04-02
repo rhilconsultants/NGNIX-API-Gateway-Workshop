@@ -121,3 +121,8 @@
       ```Bash
       envsubst '\${HOST1} \${HOST2} \${PORT}' < /usr/share/nginx/html/config/default.conf > /etc/nginx/nginx.conf
       ```
+
+    c. build and push a new image for the frontend application.
+
+      ```Bash
+      Docker build . -t quay.io/<user-name>/hello-app:v2
