@@ -482,7 +482,7 @@
   
     c. Click "create", and wait for the argoCD to create it resources.
 
-# Congratulations You now have a working Applicaiton on the cluster #
+## Congratulations You now have a working Applicaiton on the cluster ##
 
-## Move over to Step 4 ##
+### Move over to Step 4 ###
  
