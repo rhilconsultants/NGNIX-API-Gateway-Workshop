@@ -59,7 +59,7 @@
 
       ```Docker
       # => Build container
-      FROM registry.access.redhat.com/ubi8/nodejs-14:latest as builder
+      FROM registry.access.redhat.com/ubi8/nodejs-14:latest as builde
       USER root
       RUN npm install --global yarn
       WORKDIR /app
@@ -86,15 +86,18 @@
       WORKDIR /usr/share/nginx/html
       COPY ./env.sh .
       COPY .env .
-      COPY entrypoint.sh .
+      COPY entrypoint.sh config/
       COPY *.ico .
               
               
       # Make our shell script executable
-      RUN chmod 775 env.sh env-config.js entrypoint.sh && \
+      RUN chmod 775 env.sh env-config.js config/entrypoint.sh && \
           chgrp -R 0 /usr/share/nginx/html && \
           chmod -R g=u /usr/share/nginx/html && \
-          chown -R 1001:0 /usr/share/nginx/html
+          chown -R 1001:0 /usr/share/nginx/html && \
+          chgrp -R 0 /usr/share/nginx/html/config && \
+          chmod -R g=u /usr/share/nginx/html/config && \
+          chown -R 1001:0 /usr/share/nginx/html/config
               
       ENV API_URL From_the_Dockerfile
               
@@ -105,10 +108,10 @@
       USER 1001
       # Start Nginx server
       ENTRYPOINT ["/usr/share/nginx/html/config/entrypoint.sh"]
-      CMD ["/bin/bash", "-c", "/usr/share/nginx/html/config/env.sh && nginx -g \"daemon off;\""]
+      CMD ["/bin/bash", "-c", "./env.sh && nginx -g \"daemon off;\""]
       ```
 
-    b. Go to the entrypoint.sh and fix the path for the scripit location 
+    b. Go to the entrypoint.sh and fix the path for the scripit location:
 
       from this:
 
@@ -124,5 +127,14 @@
 
     c. build and push a new image for the frontend application.
 
+        build-image:
+
+        ```Bash
+        Docker build . -t quay.io/<user-name>/frontend-app:v2
+        ```
+
+      push-image:
+
       ```Bash
-      Docker build . -t quay.io/<user-name>/hello-app:v2
+      Docker push quay.io/<user-name>/frontend-app:v2
+      ```
