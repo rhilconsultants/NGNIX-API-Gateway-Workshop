@@ -53,9 +53,9 @@ spec:
           name: fronetend
           volumeMounts:
             - name: nginx-config
-              mountPath: '/usr/share/nginx/html'
+              mountPath: '/usr/share/nginx/html/config'
             - name: entrypoint
-              mountPath: '/usr/share/nginx/html'
+              mountPath: '/usr/share/nginx/html/config'
           livenessProbe:
             httpGet:
               path: /probes/liveness
