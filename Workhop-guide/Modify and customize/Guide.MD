@@ -20,11 +20,9 @@
         - HOST1=backend1
         - HOST2=backend2
         - API_URL="Hello Red Hat!!!!!!!!"
-    - name: nginx-config
+    - name: app-config
       files:
       - frontend/conf/default.conf
-    - name: entrypoint
-      files:
       - frontend/conf/entrypoint.sh
     ...
     ```
