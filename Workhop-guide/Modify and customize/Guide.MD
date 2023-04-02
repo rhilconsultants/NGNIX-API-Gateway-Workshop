@@ -148,7 +148,7 @@
 
 1. Navigate to Deplyment/backend, copy and paste folder 1 and rename it folder 3.
 
-2. replace in the new folder 3 files from "2" to "3" so we have a new deployment.
+2. replace in the new folder 3 files from "backend2" to "backend3" so we have a new deployment.
 
 3. Navigate to Deployment/kustomization.yaml and add the new backend/3 folder under resources.
 
@@ -160,7 +160,7 @@
 
 7. update the new image in the deployment/frontend/deployment.yaml with the new image & tag
 
-8. update the conf/default.conf, entrypoint.sh with $HOST3 and add the HOST3 service name to the deployment/Kustomization.yaml file.
+8. update the Deployment/frontend/conf/default.conf, Deployment/frontend/conf/entrypoint.sh with $HOST3 and add the HOST3 and it's service name to the deployment/Kustomization.yaml file.
 
 9. add, commit and push the changes to the git, go and refresh the argoCD application.
 
