@@ -127,11 +127,11 @@
 
     c. build and push a new image for the frontend application.
 
-        build-image:
+      build-image:
 
-        ```Bash
-        Docker build . -t quay.io/<user-name>/frontend-app:v2
-        ```
+      ```Bash
+      Docker build . -t quay.io/<user-name>/frontend-app:v2
+      ```
 
       push-image:
 
