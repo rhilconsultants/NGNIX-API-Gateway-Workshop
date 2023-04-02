@@ -13,8 +13,8 @@ RUN yarn build
 FROM registry.access.redhat.com/ubi8/nginx-120:latest
 USER root
 # Nginx config
-        
-COPY conf/default.conf  /etc/nginx/
+RUN mkdir /usr/share/nginx/html/config
+COPY conf/default.conf  /usr/share/nginx/html/config
         
 # Static build
 COPY --from=builder /app/build /usr/share/nginx/html/
@@ -44,5 +44,5 @@ ENV PORT 9090
         
 USER 1001
 # Start Nginx server
-ENTRYPOINT ["/usr/share/nginx/html/entrypoint.sh"]
-CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
+ENTRYPOINT ["/usr/share/nginx/html/config/entrypoint.sh"]
+CMD ["/bin/bash", "-c", "/usr/share/nginx/html/config/env.sh && nginx -g \"daemon off;\""]
