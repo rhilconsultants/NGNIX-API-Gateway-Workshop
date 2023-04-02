@@ -24,14 +24,14 @@ EXPOSE 8080
         
 # Copy .env file and shell script to container
 WORKDIR /usr/share/nginx/html
-COPY ./env.sh config/
+COPY ./env.sh .
 COPY .env .
 COPY entrypoint.sh config/
 COPY *.ico .
         
         
 # Make our shell script executable
-RUN chmod 775 config/env.sh env-config.js config/entrypoint.sh && \
+RUN chmod 775 env.sh env-config.js config/entrypoint.sh && \
     chgrp -R 0 /usr/share/nginx/html && \
     chmod -R g=u /usr/share/nginx/html && \
     chown -R 1001:0 /usr/share/nginx/html && \
@@ -48,4 +48,4 @@ ENV PORT 9090
 USER 1001
 # Start Nginx server
 ENTRYPOINT ["/usr/share/nginx/html/config/entrypoint.sh"]
-CMD ["/bin/bash", "-c", "/usr/share/nginx/html/config/env.sh && nginx -g \"daemon off;\""]
+CMD ["/bin/bash", "-c", "./env.sh && nginx -g \"daemon off;\""]
