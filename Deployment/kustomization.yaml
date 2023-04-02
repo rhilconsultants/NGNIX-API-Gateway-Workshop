@@ -17,7 +17,7 @@ configMapGenerator:
     - API_URL="Hello Red Hat!!!!!!!!"
 - name: nginx-config
   files:
-  - ../../conf/default.conf
+  - frontend/conf/default.conf
 - name: entrypoint
   files:
-  - ../../entrypoint.sh
+  - frontend/conf/entrypoint.sh
