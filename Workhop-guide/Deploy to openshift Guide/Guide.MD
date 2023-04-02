@@ -491,8 +491,6 @@
     f. test the "Test backend 1" link to see that is able to access the backend server and also "Test backend 2"
     to see that everything is working.
 
+## Congratulations You now have a working Applicaiton on the cluster
 
-## Congratulations You now have a working Applicaiton on the cluster ##
-
-### Move over to Step 4 ###
- 
+### Move over to Step 4
