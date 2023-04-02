@@ -24,14 +24,14 @@ EXPOSE 8080
         
 # Copy .env file and shell script to container
 WORKDIR /usr/share/nginx/html
-COPY ./env.sh .
+COPY ./env.sh config/
 COPY .env .
-COPY entrypoint.sh .
+COPY entrypoint.sh config/
 COPY *.ico .
         
         
 # Make our shell script executable
-RUN chmod 775 env.sh env-config.js entrypoint.sh && \
+RUN chmod 775 config/env.sh env-config.js config/entrypoint.sh && \
     chgrp -R 0 /usr/share/nginx/html && \
     chmod -R g=u /usr/share/nginx/html && \
     chown -R 1001:0 /usr/share/nginx/html
