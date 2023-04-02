@@ -46,11 +46,12 @@
           - name: app-config
             configMap:
               name: app-config
+              defaultMode: 509  #This change the premissions for the mounted files
           containers:
             - name: ...
               volumeMounts:
                 - name: app-config
-                  mountPath: '/usr/share/nginx/html/config'
+                  mountPath: '/usr/share/nginx/html/config' #the location where the files will be mounted
     ```
 
 4. Now we need to fix our Container so it will run from the new path '/usr/share/nginx/html/config'
@@ -130,11 +131,13 @@
       build-image:
 
       ```Bash
-      Docker build . -t quay.io/<user-name>/frontend-app:v2
+      docker build . -t quay.io/<user-name>/frontend-app:v2
       ```
 
       push-image:
 
       ```Bash
-      Docker push quay.io/<user-name>/frontend-app:v2
+      docker push quay.io/<user-name>/frontend-app:v2
       ```
+
+    d. update the frontend/deployment.yaml file with the new image and tag and refresh the ArgoCD application.
