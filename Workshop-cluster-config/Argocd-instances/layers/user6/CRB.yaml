@@ -1,0 +1,15 @@
+---
+# Source: user-template/templates/CRB.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: user6-argocd-argocd-application-controller
+  namespace: user6-application
+subjects:
+  - kind: ServiceAccount
+    name: user6-argocd-argocd-application-controller
+    namespace: user6-argocd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admins

@@ -1,0 +1,11 @@
+---
+# Source: user-template/templates/namespace.yaml
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: user5-application
+  labels:
+    argocd.argoproj.io/managed-by: user5-argocd
+spec:
+  finalizers:
+    - kubernetes

@@ -1,0 +1,9 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: user1-application
+  labels:
+    argocd.argoproj.io/managed-by: user1-argocd
+spec:
+  finalizers:
+    - kubernetes
