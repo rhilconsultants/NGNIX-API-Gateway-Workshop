@@ -14,7 +14,7 @@ configMapGenerator:
     - BACKEBD_PORT=9091
     - PORT=8080
     - HOST1=backend1
-    - HOST2=backend2"
+    - HOST2=backend2
     - HOST3=backend3
     - API_URL="Hello Red Hat
 - name: app-config
