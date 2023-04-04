@@ -16,8 +16,8 @@ configMapGenerator:
     - HOST1=backend1
     - HOST2=backend2
     - HOST3=backend3
-    - API_URL="Hello Hilay amir!!"
+    - API_URL="Hello Navy!"
 - name: app-config
   files:
-  - frontend/conf/default.conf
+  - frontend/conf/defaavy!"
   - frontend/conf/entrypoint.sh
