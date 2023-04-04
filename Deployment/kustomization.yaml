@@ -19,5 +19,5 @@ configMapGenerator:
     - API_URL="Hello Navy!"
 - name: app-config
   files:
-  - frontend/conf/defaavy!"
+  - frontend/conf/default.conf"
   - frontend/conf/entrypoint.sh
