@@ -189,7 +189,7 @@
       Now push the new image to the quay registry.
 
       ```bash
-      docker push uay.io/<User-Name>/backend-app:v1
+      docker push quay.io/<User-Name>/backend-app:v1
       ```
 
 ### now our backend application is deployed to an image registry and we can access it from anywhere ###
