@@ -17,5 +17,3 @@ spec:
       targetPort: 9091
   type: ClusterIP
   selector:
-    app: backend
-    deployment: backend
