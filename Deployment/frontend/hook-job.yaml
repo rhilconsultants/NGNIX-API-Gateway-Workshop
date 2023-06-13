@@ -10,20 +10,21 @@ spec:
     metadata:
       name: test-backends
     spec:
-     restartPolicy: Never
-     containers:
-     - name: test-backends
-       image: registry.access.redhat.com/ubi9-minimal:latest
-       workingDir: /workspace/output
-       command: ["/bin/bash", "-c"]
-       args: 
-       - 'echo testing Backend1'
-       - 'curl ${BACKEND1_SERVICE_HOST}:${BACKEND1_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1'
-       - 'echo testing Backend2'
-       - 'curl ${BACKEND2_SERVICE_HOST}:${BACKEND2_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1'
-       - 'echo testing Backend3'
-       - 'curl ${BACKEND3_SERVICE_HOST}:${BACKEND3_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1'
-       env:
-         - name: TEST
-           value: Healty
+      restartPolicy: Never
+      containers:
+        - name: test-backends
+          image: registry.access.redhat.com/ubi9-minimal:latest
+          workingDir: /workspace/output
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              echo testing Backend1
+              curl ${BACKEND1_SERVICE_HOST}:${BACKEND1_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1
+              echo testing Backend2
+              curl ${BACKEND2_SERVICE_HOST}:${BACKEND2_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1
+              echo testing Backend3
+              curl ${BACKEND3_SERVICE_HOST}:${BACKEND3_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1
+          env:
+            - name: TEST
+              value: Healthy
   backoffLimit: 1
