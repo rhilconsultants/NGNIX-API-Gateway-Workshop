@@ -24,6 +24,7 @@ spec:
         - 'echo testing Backend3'
         - 'curl ${BACKEND3_SERVICE_HOST}:${BACKEND3_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1'
         - 'echo All tests passed'
+        - 'exit 0'  # Exit with 0 status code to indicate success
         env:
         - name: TEST
           value: Healty
