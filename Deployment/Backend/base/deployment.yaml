@@ -25,7 +25,7 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           terminationMessagePath: /dev/termination-log
-          name: backend1
+          name: backend
           livenessProbe:
             httpGet:
               path: /health/liveliness
