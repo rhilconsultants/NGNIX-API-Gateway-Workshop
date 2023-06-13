@@ -250,3 +250,11 @@
 
 ![ArgoUI](https://raw.githubusercontent.com/rhilconsultants/NGNIX-API-Gateway-Workshop/GitOps/artifacts/ApplicationSet.png)
 
+## Now we will create a Sync Hook for the frontend application,this will test before syncing the application if the 3 backends are working.
+
+1. in the Deployment/Frontend folder create the following file:
+
+  hook-job,yaml
+
+  ```YAML
+  
