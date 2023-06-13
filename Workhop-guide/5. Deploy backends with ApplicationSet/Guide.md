@@ -43,7 +43,7 @@
 
     1. remove the "1" from every name (change from backend1 to backend)
     2. replace the env from config map to env from value
-    3. remove all lables from the deployment tempalte and container in the deployment.yaml
+    3. remove all lables from the deployment template and container in the deployment.yaml
     4. remove all lables and selectors from the service
     5. copy the folders 1, 2, 3 into the layers folder and leave only the kustomization.yaml file in them.
 
