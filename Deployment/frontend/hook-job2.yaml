@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "2"
+  name: test-backend-2
+spec:
+  template:
+    metadata:
+      name: test-backend-2
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: test-backend-2
+        image: registry.access.redhat.com/ubi9-minimal:latest
+        workingDir: /workspace/output
+        command: ["/bin/bash", "-c"]
+        args:
+        - 'echo testing Backend2'
+        - 'curl ${BACKEND2_SERVICE_HOST}:${BACKEND2_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1'
+        env:
+        - name: TEST
+          value: Healty
+  backoffLimit: 1

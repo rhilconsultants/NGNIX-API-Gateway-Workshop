@@ -4,27 +4,22 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
-  name: test-backends
+    argocd.argoproj.io/sync-wave: "3"
+  name: test-backend-3
 spec:
   template:
     metadata:
-      name: test-backends
+      name: test-backend-3
     spec:
       restartPolicy: Never
       containers:
-      - name: test-backends
+      - name: test-backend-3
         image: registry.access.redhat.com/ubi9-minimal:latest
         workingDir: /workspace/output
         command: ["/bin/bash", "-c"]
         args:
-        - 'echo testing Backend1'
-        - 'curl ${BACKEND1_SERVICE_HOST}:${BACKEND1_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1'
-        - 'echo testing Backend2'
-        - 'curl ${BACKEND2_SERVICE_HOST}:${BACKEND2_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1'
         - 'echo testing Backend3'
         - 'curl ${BACKEND3_SERVICE_HOST}:${BACKEND3_SERVICE_PORT}/health/liveliness | grep "${TEST}" || exit 1'
-        - 'echo All tests passed'
-        - 'exit 0'  # Exit with 0 status code to indicate success
         env:
         - name: TEST
           value: Healty
