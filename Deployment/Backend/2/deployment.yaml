@@ -49,10 +49,7 @@ spec:
             failureThreshold: 3
           env:
             - name: PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: app-environment
-                  key: BACKEBD_PORT
+              value: 9091
           ports:
             - containerPort: 8080
               protocol: TCP

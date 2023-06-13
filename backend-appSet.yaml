@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: backends-app
+  namespace: test
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/rhilconsultants/NGNIX-API-Gateway-Workshop.git
+        revision: solution
+        directories:
+        - path: Deployment/Backend/*
+  template:
+    metadata:
+      name: 'backend-{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/rhilconsultants/NGNIX-API-Gateway-Workshop.git
+        targetRevision: solution
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: test-app
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
