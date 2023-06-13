@@ -27,7 +27,7 @@
     ...
     ```
 
-    this will create 2 new configMaps in the namespace one for each file
+    this will create 2 new configMaps in the namespace
 
 3. mount the new configMap in the frontend/deployment.yaml file as following:
 
@@ -148,7 +148,7 @@
 
 1. Navigate to Deplyment/backend, copy and paste folder 1 and rename it folder 3.
 
-2. replace in the new folder 3 files from "backend2" to "backend3" so we have a new deployment.
+2. replace in the new folder 3 files from "backend1" to "backend3" so we have a new deployment.
 
 3. Navigate to Deployment/kustomization.yaml and add the new backend/3 folder under resources.
 
@@ -164,4 +164,4 @@
 
 9. add, commit and push the changes to the git, go and refresh the argoCD application.
 
-## Congratulations You have finish the Workshop
+## Congratulations Now go To Step 5
