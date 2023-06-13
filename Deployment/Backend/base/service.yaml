@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: backend2
+  name: backend
   labels:
-    app: backend2
-    app.kubernetes.io/component: backend2
-    app.kubernetes.io/instance: backend2
-    app.kubernetes.io/name: backend2
+    app: backend
+    app.kubernetes.io/component: backend1
+    app.kubernetes.io/instance: backend1
+    app.kubernetes.io/name: backend1
     app.kubernetes.io/part-of: api-workshop
     app.openshift.io/runtime-version: v1
 spec:
@@ -17,5 +17,5 @@ spec:
       targetPort: 9091
   type: ClusterIP
   selector:
-    app: backend2
-    deployment: backend2
+    app: backend
+    deployment: backend

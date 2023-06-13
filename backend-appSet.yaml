@@ -9,7 +9,7 @@ spec:
         repoURL: https://github.com/rhilconsultants/NGNIX-API-Gateway-Workshop.git
         revision: solution
         directories:
-        - path: Deployment/Backend/*
+        - path: Deployment/Backend/layers/*
   template:
     metadata:
       name: 'backend-{{path.basename}}'
