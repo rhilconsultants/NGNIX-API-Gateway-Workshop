@@ -5,18 +5,18 @@ metadata:
 spec:
   generators:
   - git:
-      repoURL: https://github.com/rhilconsultants/app-helm-argocd.git
-      revision: main
+      repoURL: https://github.com/rhilconsultants/NGNIX-API-Gateway-Workshop.git
+      revision: GitOps
       directories:
-      - path: Argocd-instances/layers/*
+      - path: Workshop-cluster-config/Argocd-instances/layers/*
   template:
     metadata:
       name: '{{path.basename}}'
     spec:
       project: default
       source:
-        repoURL: https://github.com/rhilconsultants/app-helm-argocd.git
-        targetRevision: main
+        repoURL: https://github.com/rhilconsultants/NGNIX-API-Gateway-Workshop.git
+        targetRevision: GitOps
         path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc
