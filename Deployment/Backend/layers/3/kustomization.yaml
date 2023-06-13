@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
 - ../../base
 
-nameSuffix: 3
+nameSuffix: '3'
