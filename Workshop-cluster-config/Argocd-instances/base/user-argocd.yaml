@@ -4,6 +4,7 @@ metadata:
   name: argocd
 spec:
   server:
+    insecure: true
     autoscale:
       enabled: false
     grpc:
