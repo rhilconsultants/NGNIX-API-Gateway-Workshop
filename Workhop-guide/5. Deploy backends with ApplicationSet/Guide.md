@@ -89,10 +89,10 @@
                 failureThreshold: 3
             env:
                 - name: PORT
-                value: '9091'
+                  value: '9091'
             ports:
                 - containerPort: 9091
-                protocol: TCP
+                  protocol: TCP
             imagePullPolicy: IfNotPresent
             terminationMessagePolicy: File
             image: 'quay.io/thason/hello-app:v4'
@@ -121,9 +121,9 @@
     spec:
     ports:
         - name: 8080-tcp
-        protocol: TCP
-        port: 8080
-        targetPort: 9091
+          protocol: TCP
+          port: 8080
+          targetPort: 9091
     type: ClusterIP
     selector:
     ```
