@@ -4,7 +4,6 @@ metadata:
   name: argocd
 spec:
   server:
-    insecure: true
     autoscale:
       enabled: false
     grpc:
@@ -12,6 +11,7 @@ spec:
         enabled: false
     ingress:
       enabled: false
+    insecure: true
     resources:
       limits:
         cpu: 500m
@@ -29,6 +29,8 @@ spec:
       enabled: false
     route:
       enabled: false
+  monitoring:
+    enabled: false
   notifications:
     enabled: false
   prometheus:
