@@ -439,7 +439,7 @@
     - Backend/1
     - Backend/2
     - frontend
-    - namespace.yaml
+
     
     configMapGenerator:
     - name: app-environment
@@ -449,20 +449,6 @@
         - HOST1=backend1
         - HOST2=backend2
         - API_URL="Hello World"
-    ```
-
-    namespace.yaml
-
-    ```YAML
-    kind: Namespace
-    apiVersion: v1
-    metadata:
-      name: api-workshop
-      labels:
-        argocd.argoproj.io/managed-by: <<Your ArgoCD Namepace Name>>
-    spec:
-      finalizers:
-        - kubernetes
     ```
 
     Now we have created a full application deployment from a single entrypoint folder.
@@ -478,7 +464,7 @@
       * path -  The folder where the main kustomization file located
       * targetRevision - Your Working Branch
       * 'server: 'https://kubernetes.default.svc'
-      * 'namespace: api-workshop'
+      * 'namespace: user<<N>>-application'
   
     c. Click "create", and wait for the argoCD to create it resources.
 
