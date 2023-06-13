@@ -5,3 +5,11 @@ resources:
 - ../../base
 
 nameSuffix: '3'
+
+commonLabels:
+    app: backend3
+    app.kubernetes.io/component: backend3
+    app.kubernetes.io/instance: backend3
+    app.kubernetes.io/name: backend3
+    app.kubernetes.io/part-of: api-workshop
+    app.openshift.io/runtime: nodejs
