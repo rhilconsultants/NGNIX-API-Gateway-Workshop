@@ -5,4 +5,6 @@ resources:
 - deployment.yaml
 - service.yaml
 - route.yaml
-- hook-job.yaml
+- hook-job1.yaml
+- hook-job2.yaml
+- hook-job3.yaml
