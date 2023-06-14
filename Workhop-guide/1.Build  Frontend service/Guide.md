@@ -240,7 +240,7 @@
 
       ```Dockerfile
       # => Build container
-      FROM registry.access.redhat.com/ubi8/nodejs-14:latest as builder
+      FROM registry.access.redhat.com/ubi8/nodejs-16:latest as builder
       USER root
       RUN npm install --global yarn
       WORKDIR /app
