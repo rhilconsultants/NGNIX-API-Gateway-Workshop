@@ -11,4 +11,4 @@ configMapGenerator:
     - TAG=ver_a5e2f0
     - IMAGE=quay.io/argocicd/hello-world
 generatorOptions:
- disableNameSuffixHash: false
+ disableNameSuffixHash: true
