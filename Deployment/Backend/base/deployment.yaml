@@ -43,7 +43,7 @@ spec:
               protocol: TCP
           imagePullPolicy: IfNotPresent
           terminationMessagePolicy: File
-          image: 'quay.io/thason/hello-app:v4'
+          image: 'quay.io/argocicd/hello-world:ver_b2afcf'
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
