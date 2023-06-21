@@ -36,6 +36,16 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           env:
+            - name: IMAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: tag
+                  key: IMAGE
+            - name: TAG
+              valueFrom:
+                configMapKeyRef:
+                  name: tag
+                  key: TAG
             - name: PORT
               value: '9091'
           ports:
