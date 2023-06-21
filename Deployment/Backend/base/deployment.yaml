@@ -43,7 +43,7 @@ spec:
               protocol: TCP
           imagePullPolicy: IfNotPresent
           terminationMessagePolicy: File
-          image: 'quay.io/argocicd/hello-world:ver_b2afcf'
+          image: 'quay.io/argocicd/hello-world:ver_a5e2f0'
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
