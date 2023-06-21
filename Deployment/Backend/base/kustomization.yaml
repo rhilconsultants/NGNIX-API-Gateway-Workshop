@@ -4,3 +4,11 @@ kind: Kustomization
 resources:
 - deployment.yaml
 - service.yaml
+
+configMapGenerator:
+- name: tag
+  literals:
+    - TAG=ver_a5e2f0
+    - IMAGE=quay.io/argocicd/hello-world
+generatorOptions:
+ disableNameSuffixHash: false
