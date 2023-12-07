@@ -1,8 +1,0 @@
----
-# Source: user-template/templates/group.yaml
-kind: Group
-apiVersion: user.openshift.io/v1
-metadata:
-  name: group
-users:
-  - user11
