@@ -62,12 +62,12 @@
 
    Explaination:
    env.sh –
-     (1) Removes the old file, and creates a new one.
-     (2) writes JS code which opens object literal and assigns it to the global window object.
-     (3) Reads each line of .env file and splits into key/value pair.
-     (4) Look for the environment variable, if set, use its value, otherwise, use the default value from .env file.
-     (5) Append it to object that we assigned to global window object.
-     (6) Close object literal.
+  (1) Removes the old file, and creates a new one.
+  (2) writes JS code which opens object literal and assigns it to the global window object.
+  (3) Reads each line of .env file and splits into key/value pair.
+  (4) Look for the environment variable, if set, use its value, otherwise, use the default value from .env file.
+  (5) Append it to object that we assigned to global window object.
+  (6) Close object literal.
 
 4. We need to add the following line to the "< head >" element inside index.htmlwhich then imports the file created by our bash script.
 
